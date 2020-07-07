@@ -19,4 +19,4 @@ target_link_libraries(${PROJECT_NAME}
 	${TORCH_LIBRARIES}
 )
 
-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 14) # here must specify 14

@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
 		// sentence2: "the movie has bad experience"
 		torch::Tensor  input2 = torch::tensor({ {2,  20,  41,  97, 802} }); // adapt the shape as a batch fo samples
 		std::vector<torch::jit::IValue> inputs{ input2 };
-		torch::Tensor output2 = net.forward({ inputs }).toTensor();
+		torch::Tensor output2 = net.forward(inputs).toTensor();
 		std::cout << "output2: " << output2 << std::endl;
 
 		// TODO: argmax
