@@ -18,18 +18,19 @@ int main(int argc, char* argv[])
 		torch::Device device(device_type, 0);
 		net.to(device);
 
-		// create inputs, watch out that a::Tensor and torch::Tensor is not the same type
+		// create inputs, watch out that a::Tensor and torch::Tensor is the same type
 		// sentence1: "I feel the movie to kind of great and to my taste"
-		at::Tensor  input1 = torch::tensor({9, 223, 2, 20, 232, 5, 88, 4, 6, 57, 1743}); // adapt the shape
+		torch::Tensor input1 = torch::tensor({ {9, 223, 2, 20, 232, 5, 88, 4, 6, 57, 1743} }); // adapt the shape as a batch fo samples
+		torch::Tensor output1 = net.forward({ input1 }).toTensor();
+		std::cout << "output1: " << output1 << std::endl;
+
 		// sentence2: "the movie has bad experience"
-		at::Tensor  input2 = torch::tensor({2,  20,  41,  97, 802}); // adapt the shape
+		torch::Tensor  input2 = torch::tensor({ {2,  20,  41,  97, 802} }); // adapt the shape as a batch fo samples
+		std::vector<torch::jit::IValue> inputs{ input2 };
+		torch::Tensor output2 = net.forward({ inputs }).toTensor();
+		std::cout << "output2: " << output2 << std::endl;
 
-		std::vector<torch::jit::IValue> inputs;
-		inputs.push_back(input1);
-		inputs.push_back(input2);
-		at::Tensor outputs = net.forward(inputs).toTensor();
-
-		//std::cout << outputs << std::endl;
+		// TODO: argmax
 
 		std::cout << "predict ok" << std::endl;
 		
